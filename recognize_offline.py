@@ -141,8 +141,8 @@ def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190,
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     C = classifier_Gaze.classifier_Gaze()
-    folder_in  = './data/input/23/'
-    folder_out = './data/output/23a/'
+    folder_in  = './data/input/25/'
+    folder_out = './data/output/25a/'
 
     C.load_model('./data/output/model.h5')
     process_annotation_file(C,folder_in,folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
