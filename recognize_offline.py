@@ -120,7 +120,7 @@ def evaluate_accuracy(file_annotations_fact,file_annotations_pred):
 
     return error
 # ----------------------------------------------------------------------------------------------------------------------
-def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190, 0]):
+def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190, 0],do_desaturate=False):
 
     if not os.path.exists(folder_out):os.mkdir(folder_out)
 
@@ -131,6 +131,8 @@ def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190,
         split = split.split('\t')
         image = cv2.imread(folder_in + split[0])
         if image is None: continue
+        if do_desaturate:
+            image = tools_image.desaturate(image)
         r,c = float(split[2]),float(split[3])
         r = int(float(r)*image.shape[0])
         c = int(float(c)*image.shape[1])
@@ -141,15 +143,15 @@ def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190,
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     C = classifier_Gaze.classifier_Gaze()
-    folder_in  = './data/input/25/'
-    folder_out = './data/output/25a/'
+    folder_in  = './data/input/24/'
+    folder_out = './data/output/24a/'
 
     C.load_model('./data/output/model.h5')
-    process_annotation_file(C,folder_in,folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
+    #process_annotation_file(C,folder_in,folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
     #draw_markup(folder_in, folder_in+'markup_fact.txt',folder_in+'markup_pred.txt','./data/output/25a/')
     #error = evaluate_accuracy(folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
     #print(error)
 
-    visualize_annotations(folder_in,  folder_in + 'markup_fact.txt',folder_out)
-    visualize_annotations(folder_out, folder_in + 'markup_pred.txt',folder_out,color=[255, 64,0])
+    visualize_annotations(folder_in,  folder_in + 'markup_fact.txt',folder_out,color=[32, 32,255],do_desaturate=True)
+    visualize_annotations(folder_out, folder_in + 'markup_pred.txt',folder_out,color=[255, 128,0])
     tools_animation.folder_to_animated_gif_imageio(folder_out, folder_out+'animation.gif', mask='*.jpg', framerate=10,resize_H=64, resize_W=64)
