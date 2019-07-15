@@ -144,14 +144,13 @@ def visualize_annotations(folder_in, file_annotations,folder_out,color=[32, 190,
 if __name__ == '__main__':
     C = classifier_Gaze.classifier_Gaze()
     folder_in  = './data/input/24/'
-    folder_out = './data/output/24a/'
+    folder_out = './data/output/24/'
 
     C.load_model('./data/output/model.h5')
-    #process_annotation_file(C,folder_in,folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
+    process_annotation_file(C,folder_in,folder_in+'markup_fact.txt',folder_out+'markup_pred.txt')
+
     #draw_markup(folder_in, folder_in+'markup_fact.txt',folder_in+'markup_pred.txt','./data/output/25a/')
     #error = evaluate_accuracy(folder_in+'markup_fact.txt',folder_in+'markup_pred.txt')
-    #print(error)
-
-    visualize_annotations(folder_in,  folder_in + 'markup_fact.txt',folder_out,color=[32, 32,255],do_desaturate=True)
-    visualize_annotations(folder_out, folder_in + 'markup_pred.txt',folder_out,color=[255, 128,0])
-    tools_animation.folder_to_animated_gif_imageio(folder_out, folder_out+'animation.gif', mask='*.jpg', framerate=10,resize_H=64, resize_W=64)
+    #visualize_annotations(folder_in,  folder_in + 'markup_fact.txt',folder_out,color=[32, 32,255],do_desaturate=True)
+    #visualize_annotations(folder_out, folder_in + 'markup_pred.txt',folder_out,color=[255, 128,0])
+    #tools_animation.folder_to_animated_gif_imageio(folder_out, folder_out+'animation.gif', mask='*.jpg', framerate=10,resize_H=64, resize_W=64)
